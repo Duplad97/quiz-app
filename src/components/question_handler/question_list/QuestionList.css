@@ -1,0 +1,22 @@
+.bordered {
+    border: 2px solid black;
+    border-radius: 15px;
+    padding: 5px;
+}
+
+.centered {
+    display: flex; 
+    justify-content: center;
+}
+
+.width500 {
+    width: 500px;
+}
+
+.list-item {
+    margin-bottom: 10px;
+}
+
+.question-list {
+    width: 80%;
+}

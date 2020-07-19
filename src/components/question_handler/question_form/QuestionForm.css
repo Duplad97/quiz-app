@@ -1,0 +1,8 @@
+.centered {
+    display: flex;
+    justify-content: center;
+}
+
+.button-grid {
+    width: 30%
+}

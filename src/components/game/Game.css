@@ -1,0 +1,49 @@
+.centered {
+    display: flex;
+    justify-content: center;
+}
+
+.button {
+    margin-top: 15px;
+}
+
+.answer {
+    width: 260px;
+    border: 2px solid black;
+    border-radius: 15px;
+    padding: 5px;
+    margin: 15px;
+    cursor: pointer;
+}
+
+.answer:hover {
+    background-color: orange;
+}
+
+.selected {
+    background-color: orange;
+}
+
+.correct {
+    background-color: green;
+}
+
+.wrong {
+    background-color: red;
+}
+
+.hidden {
+    display: none;
+}
+
+.button {
+    margin-top: 25px;
+}
+
+.margin-top {
+    margin-top: 25px;
+}
+
+.name-input {
+    margin-right: 10px;
+}
