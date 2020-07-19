@@ -72,7 +72,10 @@ const Highscores = () => {
                         </Table.Body>
                     </Table>
                     <div className='centered'>
-                        <Button onClick={() => dispatch(resetScores())}>Reset highscores</Button>
+                        <Button icon labelPosition='left' onClick={() => dispatch(resetScores())}>
+                            Reset highscores
+                            <Icon name='redo' />
+                        </Button>
                     </div>
                 </div>
             }
