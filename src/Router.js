@@ -1,5 +1,5 @@
 import React from 'react';
-import { Switch, Route, BrowserRouter as Router } from 'react-router-dom';
+import { Switch, Route, BrowserRouter as Router, Redirect } from 'react-router-dom';
 import Layout from './components/layout/Layout';
 import Home from './components/home/Home';
 import QuestionHandler from './components/question_handler/QuestionHandler';
@@ -19,6 +19,10 @@ export default function AppRouter() {
                     </Route>
 
                     <Route path='/game' render={(props) => <Game {...props} />}>
+                    </Route>
+
+                    <Route>
+                        <Redirect to='/'></Redirect>
                     </Route>
 
                 </Switch>
