@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { List, Button, Message, Modal, Grid, Header, Icon } from 'semantic-ui-react';
 import { delete_question } from '../../../logic/actions';
@@ -8,8 +8,6 @@ import './QuestionList.css';
 const QuestionList = () => {
 
   const questions = useSelector(getQuestions).questions;
-
-  const dispatch = useDispatch();
 
   if (questions.length === 0) {
     return (
@@ -26,10 +24,7 @@ const QuestionList = () => {
             return (
               <List.Item key={q.id} className='list-item'>
                 <List.Content floated='right'>
-                  <Button icon labelPosition='left' onClick={() => dispatch(delete_question(q.id))}>
-                    Delete
-                    <Icon name='trash alternate' />
-                  </Button>
+                  <DeleteModal question={q} />
                 </List.Content>
                 <List.Icon name='question circle' size='large' verticalAlign='middle' />
                 <List.Content>
@@ -45,6 +40,37 @@ const QuestionList = () => {
       </div>
     )
   }
+}
+
+const DeleteModal = props => {
+
+  const [open, setOpen] = useState(false);
+
+  const dispatch = useDispatch();
+
+  const onAggree = () => {
+      dispatch(delete_question(props.question.id));
+      setOpen(false);
+  }
+
+  return (
+    <Modal open={open} closeOnEscape={false} closeOnDimmerClick={false} trigger={<Button icon labelPosition='left' onClick={() => setOpen(true)}>Delete <Icon name='trash alternate' /></Button>} basic size='small'>
+      <Header icon='trash alternate' content='Delete Question' />
+      <Modal.Content>
+        <p>
+          Are you sure you want to delete this question?
+        </p>
+      </Modal.Content>
+      <Modal.Actions>
+        <Button onClick={() => setOpen(false)} basic color='red' inverted>
+          <Icon name='remove' /> No
+        </Button>
+        <Button onClick={() => onAggree()} color='green' inverted>
+          <Icon name='checkmark' /> Yes
+        </Button>
+      </Modal.Actions>
+    </Modal>
+  )
 }
 
 const QuestionModal = props => (

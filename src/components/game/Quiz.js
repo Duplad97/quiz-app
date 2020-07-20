@@ -16,6 +16,7 @@ class Quiz extends React.Component {
             correct: null,
             randQuestion: this.props.activeQuestions[Math.floor(Math.random() * this.props.activeQuestions.length)],
             endGame: false,
+            openModal: false,
         }
 
         this.onSelectAnswer = this.onSelectAnswer.bind(this);
@@ -33,7 +34,13 @@ class Quiz extends React.Component {
         if (this.state.selectedAnswer === this.state.randQuestion.correct) this.setState({ correct: true });
         else this.setState({ correct: false });
 
-        if (this.props.activeQuestions.length === 1) this.setState({ endGame: true });
+        if (this.props.activeQuestions.length === 1){
+            const component = this;
+            component.setState({endGame: true});
+            setTimeout(function() {
+                component.setState({ openModal: true });
+            }, 800);
+        }
     }
 
     clickNext = () => {
@@ -81,7 +88,7 @@ class Quiz extends React.Component {
                         </Grid>
                     </Grid>
                     <div className={'centered button' + (this.state.answered ? ' hidden' : '')}>
-                        <Button onClick={() => { this.clickAnswer(); this.props.onAnswer({ selected: this.state.selectedAnswer, correct: this.state.randQuestion.correct }) }}>Answer</Button>
+                        <Button onClick={this.state.selectedAnswer !== '' ? () => { this.clickAnswer(); this.props.onAnswer({ selected: this.state.selectedAnswer, correct: this.state.randQuestion.correct }) } : ''}>Answer</Button>
                     </div>
 
                     <div className={'centered button' + (!this.state.answered || this.state.endGame ? ' hidden' : '')}>
@@ -89,7 +96,7 @@ class Quiz extends React.Component {
                     </div>
                 </Card.Content>
 
-                <EndGameModal endGame={this.state.endGame} points={this.props.points} name={this.props.name} />
+                <EndGameModal openModal={this.state.openModal} points={this.props.points} name={this.props.name} />
             </Card>
         )
     }
@@ -123,7 +130,7 @@ const EndGameModal = props => {
     }
 
     return (
-        <Modal open={props.endGame}>
+        <Modal open={props.openModal}>
             <Modal.Content>
                 <Header as='h3' textAlign='center'>There are no more questions!</Header>
                 <h4>You scored: {props.points}/{questionsLength}</h4>
